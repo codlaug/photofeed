@@ -1,0 +1,4 @@
+photofeed
+=========
+
+Photo aggregator application
