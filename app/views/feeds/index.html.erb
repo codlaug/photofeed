@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PhotoFeed News Discovery Tool</title>
+</head>
+	<h2>Recent Images from Twitter</h2>
+	<body>
+		<% @image_tweets.each do |tweet| %>
+			
+			<div class="image_tweet">
+				<img src="<%= tweet[:image_uri]%>">
+			</div> 
+			
+		<% end %>
+	</body>
+</html>
+
+
+
+
