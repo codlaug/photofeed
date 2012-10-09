@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009212533) do
+ActiveRecord::Schema.define(:version => 20121009220341) do
 
   create_table "pod_twitter_lists", :force => true do |t|
     t.integer  "pod_id"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20121009212533) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "profile_image_url"
+    t.string   "username"
+    t.string   "usericon"
   end
 
   create_table "twitter_list_tweets", :force => true do |t|
