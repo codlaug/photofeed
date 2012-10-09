@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009062639) do
+ActiveRecord::Schema.define(:version => 20121009220341) do
 
   create_table "pod_twitter_lists", :force => true do |t|
     t.integer  "pod_id"
@@ -38,13 +38,16 @@ ActiveRecord::Schema.define(:version => 20121009062639) do
     t.string   "expanded_url"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "profile_image_url"
+    t.string   "username"
+    t.string   "usericon"
   end
 
-  create_table "twitter_list_members", :force => true do |t|
+  create_table "twitter_list_tweets", :force => true do |t|
     t.integer  "twitter_list_id"
-    t.integer  "twitter_member_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "tweet_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "twitter_lists", :force => true do |t|
@@ -53,24 +56,6 @@ ActiveRecord::Schema.define(:version => 20121009062639) do
     t.string   "list_slug"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-  end
-
-  create_table "twitter_member_tweets", :force => true do |t|
-    t.integer  "twitter_member_id"
-    t.integer  "tweet_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  create_table "twitter_members", :force => true do |t|
-    t.string   "twitter_id"
-    t.string   "name"
-    t.string   "screen_name"
-    t.string   "location"
-    t.string   "description"
-    t.string   "url"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
 end

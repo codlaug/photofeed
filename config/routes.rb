@@ -3,8 +3,6 @@ Photofeed::Application.routes.draw do
 
   resources :tweets
 
-  resources :twitter_members
-
   resources :twitter_lists
 
   resources :pods
