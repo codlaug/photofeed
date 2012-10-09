@@ -1,0 +1,25 @@
+<h1>Listing pods</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pods.each do |pod| %>
+  <tr>
+    <td><%= pod.id %></td>
+    <td><%= pod.name %></td>
+    <td><%= link_to 'Show', pod %></td>
+    <td><%= link_to 'Edit', edit_pod_path(pod) %></td>
+    <td><%= link_to 'Destroy', pod, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pod', new_pod_path %>

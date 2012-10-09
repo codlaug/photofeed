@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id:</b>
+  <%= @tweet.id %>
+</p>
+
+<p>
+  <b>Twitter create at:</b>
+  <%= @tweet.twitter_create_at %>
+</p>
+
+<p>
+  <b>Twitter:</b>
+  <%= @tweet.twitter_id %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%= @tweet.text %>
+</p>
+
+<p>
+  <b>Source:</b>
+  <%= @tweet.source %>
+</p>
+
+<p>
+  <b>Media url:</b>
+  <%= @tweet.media_url %>
+</p>
+
+<p>
+  <b>Media url https:</b>
+  <%= @tweet.media_url_https %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @tweet.url %>
+</p>
+
+<p>
+  <b>Display url:</b>
+  <%= @tweet.display_url %>
+</p>
+
+<p>
+  <b>Expanded url:</b>
+  <%= @tweet.expanded_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
+<%= link_to 'Back', tweets_path %>

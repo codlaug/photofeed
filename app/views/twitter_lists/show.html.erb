@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id:</b>
+  <%= @twitter_list.id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @twitter_list.name %>
+</p>
+
+<p>
+  <b>Owner screen name:</b>
+  <%= @twitter_list.owner_screen_name %>
+</p>
+
+<p>
+  <b>List slug:</b>
+  <%= @twitter_list.list_slug %>
+</p>
+
+
+<%= link_to 'Edit', edit_twitter_list_path(@twitter_list) %> |
+<%= link_to 'Back', twitter_lists_path %>
