@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id:</b>
+  <%= @twitter_member.id %>
+</p>
+
+<p>
+  <b>Twitter:</b>
+  <%= @twitter_member.twitter_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @twitter_member.name %>
+</p>
+
+<p>
+  <b>Screen name:</b>
+  <%= @twitter_member.screen_name %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @twitter_member.location %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @twitter_member.description %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @twitter_member.url %>
+</p>
+
+
+<%= link_to 'Edit', edit_twitter_member_path(@twitter_member) %> |
+<%= link_to 'Back', twitter_members_path %>

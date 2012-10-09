@@ -1,4 +1,14 @@
 Photofeed::Application.routes.draw do
+  get "home/index"
+
+  resources :tweets
+
+  resources :twitter_members
+
+  resources :twitter_lists
+
+  resources :pods
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

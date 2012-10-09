@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  twitter_create_at: MyString
+  twitter_id: MyString
+  text: MyString
+  source: MyString
+  media_url: MyString
+  media_url_https: MyString
+  url: MyString
+  display_url: MyString
+  expanded_url: MyString
+
+two:
+  id: 1
+  twitter_create_at: MyString
+  twitter_id: MyString
+  text: MyString
+  source: MyString
+  media_url: MyString
+  media_url_https: MyString
+  url: MyString
+  display_url: MyString
+  expanded_url: MyString

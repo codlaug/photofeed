@@ -1,0 +1,2 @@
+class TweetServiceController < ApplicationController
+end
