@@ -1,4 +1,6 @@
 Photofeed::Application.routes.draw do
+  get "home/index"
+
   resources :tweets
 
   resources :twitter_members
