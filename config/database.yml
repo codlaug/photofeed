@@ -19,7 +19,7 @@ development: &common
 test:
   <<: *common
   database: photofeed_test
-`
+
 production:
   <<: *common
   database: photofeed_production
