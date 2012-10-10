@@ -1,0 +1,81 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+
+body {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	background-image: url(../bg.gif), -moz-linear-gradient(top,  #ffffff,  #dddbd5); background-repeat:repeat-x;
+	background-image: url(../bg.gif), -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dddbd5)); background-repeat:repeat-x;
+
+	
+	margin: 0;
+	padding: 0px 0px 0px 20px;
+	text-align: center;
+	color: #333333;
+}
+
+.header {
+	margin:0px;
+	background-color:#ffffff;
+	height:109px;
+	
+}
+
+
+.styled-select select {
+   background: white;
+   width: 300px;
+   padding: 5px;
+   font-size: 16px;
+   border: 2px solid #bbb;
+   height: 30px;
+   margin: 30px 0px 0px 0px;
+}
+
+
+.item {
+  width: 250px;
+  margin: 20px 20px 20px 0px;
+  float: left;
+  border: #bbbbbb;
+  border-bottom-width:2px;
+  border-style:solid;
+  background-color:#FFF
+  
+}
+
+.photo {
+  width: 250px;
+  height:250px;
+  background-color:#818181;
+  
+}
+
+.profilepic {
+  float: left;
+  padding: 20px 10px 0px 20px;
+}
+.profile {
+  float: left;
+  margin: 20px 0px 0px;;
+  text-align:left;
+}
+
+.info {
+  float: left;
+  padding: 10px 20px 10px;
+  text-align:left;
+}
+
+.link {
+  float: left;
+  padding: 0px 20px 20px;
+  text-align:left;
+}
+
+
+
+
+
