@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PhotoFeed News Discovery Tool</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>PicDrop</title>
+	<link href="styles.css" rel="stylesheet" type="text/css">
 </head>
-	<h2>Recent Images from Twitter</h2>
 	<body>
-		<% @image_tweets.each do |tweet| %>
-			
-			<div class="image_tweet">
-				<img src="<%= tweet[:image_uri]%>">
-			</div> 
-			
-		<% end %>
+		<div class="header" style="vertical-align:text-top">
+			<img src="picdrop.gif" width="338" height="109" alt="PicDrop" />
+		</div>
+		<br/> <h3><%=@property%></h3> <br>
+		<div class="sort">
+		<%=link_to "American Idol", :controller => "feeds", :show=>"American Idol" %>   <%=link_to "Glee", :controller => "feeds", :show=>"Glee" %>
+		</div>
+
+
+		<div id="container">
+
+			<%@image_tweets.each do |tweet|%>
+				<div id="item">
+					 <div class="item">
+					    <div class="photo"><img src="<%=tweet[:media_url]%>" width="250" height="250" /></div>
+					    <div class="profilepic"><img src="<%=tweet[:usericon]%>" width="50" height="50" /></div>
+					    <div class="profile"><%=tweet[:username]%></div>
+					    <div class="info"><%=tweet[:text]%></div>
+					    <div class="link"><a href="http://www.twitter.com/#!/<%=tweet[:username]%>/status/<%=tweet[:twitter_id]%>">Link to Tweet</a></div>
+				</div>
+
+			<% end %>
+
+		</div
+	
 	</body>
 </html>
 

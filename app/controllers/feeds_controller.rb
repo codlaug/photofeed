@@ -1,8 +1,11 @@
 class FeedsController < ApplicationController
 
   def index
-    @image_tweets = [{:image_uri => "http://twitpic.com/show/thumb/8jkiwq.jpg", :user => "Duncanjm703", :text => "omg wtf bbq"},
-                     {:image_uri => "http://twitpic.com/show/thumb/4gzetu.jpg", :user => "Duncanjm703", :text => "WOW"}]
+
+  	@property = params[:show]
+
+    @image_tweets = Tweet.joins(:twitter_lists).where("twitter_lists.name like ?", @property)
+    
   end
 
 end
