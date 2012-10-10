@@ -21,6 +21,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'straight_dope'
+gem 'seed_dump'
 gem 'twitter', '~> 4.0.0'
 gem 'faraday', '~> 0.8'
 
