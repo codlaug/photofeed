@@ -17,27 +17,30 @@ body {
 }
 
 .header {
-	margin:0px;
+	margin:0px 0px 0px 0px;
 	background-color:#ffffff;
 	height:109px;
 	
 }
 
 
+
 .styled-select select {
    background: white;
    width: 300px;
    padding: 5px;
-   font-size: 16px;
+   font-size: 15px;
    border: 2px solid #bbb;
    height: 30px;
    margin: 30px 0px 0px 0px;
 }
 
 
+
 .item {
-  width: 250px;
-  margin: 20px 20px 20px 0px;
+	width: 250px;
+
+  margin: 20px 20px 0px 0px;
   float: left;
   border: #bbbbbb;
   border-bottom-width:2px;
@@ -46,34 +49,30 @@ body {
   
 }
 
+
+
 .photo {
   width: 250px;
-  height:250px;
   background-color:#818181;
   
 }
 
 .profilepic {
   float: left;
-  padding: 20px 10px 0px 20px;
+  padding: 10px;
 }
 .profile {
   float: left;
-  margin: 20px 0px 0px;;
+  margin: 10px 0px 10px 0px;;
   text-align:left;
 }
 
 .info {
   float: left;
-  padding: 10px 20px 10px;
+  padding: 0px 0px 10px 10px;
   text-align:left;
 }
 
-.link {
-  float: left;
-  padding: 0px 20px 20px;
-  text-align:left;
-}
 
 
 

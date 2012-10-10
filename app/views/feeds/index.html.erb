@@ -1,30 +1,51 @@
-<!DOCTYPE html>
 <html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>PicDrop</title>
+
 	<link href="styles.css" rel="stylesheet" type="text/css">
+
+	<script src="jq.js"></script>
+	<script src="masonry.js"></script>
+
+	<script>
+	$(function(){
+	  $('#container').masonry({
+	    // options
+	    itemSelector : '.item',
+	    columnWidth : 20
+	  });
+	});
+	</script>
+
 </head>
 	<body>
 		<div class="header" style="vertical-align:text-top">
 			<img src="picdrop.gif" width="338" height="109" alt="PicDrop" />
 		</div>
-		<br/> <h3><%=@property%></h3> <br>
-		<div class="sort">
-		<%=link_to "American Idol", :controller => "feeds", :show=>"American Idol" %>   <%=link_to "Glee", :controller => "feeds", :show=>"Glee" %>
+		<div class="styled-select">
+			<select id="header-shows-filter" ONCHANGE="location = this.options[this.selectedIndex].value;">
+				<option value="/feed">Select a tweet source</option>
+				<option value="/feed">All</option>
+				<option value="/feed?show=American+Idol">American Idol</option>
+				<option value="/feed?show=Glee">Glee</option>
+			</select>
+		  
 		</div>
-
-
 		<div id="container">
 
 			<%@image_tweets.each do |tweet|%>
 				<div id="item">
 					 <div class="item">
-					    <div class="photo"><img src="<%=tweet[:media_url]%>" width="250" height="250" /></div>
+					    <div class="photo">
+					    	<a href="http://www.twitter.com/#!/<%=tweet[:username]%>/status/<%=tweet[:twitter_id]%>">
+					    		<img src="<%=tweet[:media_url]%>" width="250" height="250" />
+					    	</a>	
+					    </div>
 					    <div class="profilepic"><img src="<%=tweet[:usericon]%>" width="50" height="50" /></div>
 					    <div class="profile"><%=tweet[:username]%></div>
 					    <div class="info"><%=tweet[:text]%></div>
-					    <div class="link"><a href="http://www.twitter.com/#!/<%=tweet[:username]%>/status/<%=tweet[:twitter_id]%>">Link to Tweet</a></div>
 				</div>
 
 			<% end %>
