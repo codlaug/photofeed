@@ -1,0 +1,8 @@
+
+development:
+  oauth_token: 863817150-KWqkhvvAzyOuyLM8o77p50aKOrS1yFfw0ru6SDMj
+  oauth_token_secret: Y1IgfkvHXhIft1OEe04Tmh3f1ejTiiwKrR0NSpSEeY
+
+production:
+  oauth_token: 863817150-KWqkhvvAzyOuyLM8o77p50aKOrS1yFfw0ru6SDMj
+  oauth_token_secret: Y1IgfkvHXhIft1OEe04Tmh3f1ejTiiwKrR0NSpSEeY
