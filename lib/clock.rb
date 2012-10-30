@@ -10,6 +10,6 @@ handler do |job|
 end
 
 #every(10.seconds, 'tweet.service.job') { TwitterList.all.each { |tl| tl.get_new_tweets } } 
-every(30.minutes, 'tweet.service.job') { TwitterList.all.each { |tl| Delayed::Job.enqueue tl }} 
+every(60.minutes, 'tweet.service.job') { TwitterList.all.each { |tl| Delayed::Job.enqueue tl }} 
 
 
