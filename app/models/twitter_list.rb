@@ -16,7 +16,7 @@ class TwitterList < ActiveRecord::Base
 
 			tweets.each do |t|
 				if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
-					puts("Tweet exists")
+					# puts("Tweet exists")
 					next
 				end
 
