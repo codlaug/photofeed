@@ -49,7 +49,7 @@ class TwitterList < ActiveRecord::Base
 				end
 
 				if (tweet.media_url.nil?) 
-					puts("No media")
+					# puts("No media")
 					next
 				end
 				
