@@ -27,8 +27,9 @@
 			<select id="header-shows-filter" ONCHANGE="location = this.options[this.selectedIndex].value;">
 				<option value="/feed">Select a tweet source</option>
 				<option value="/feed">All</option>
-				<option value="/feed?show=American+Idol">American Idol</option>
-				<option value="/feed?show=Glee">Glee</option>
+				<% @twitter_lists.each do |tl| %>
+					<option value="/feed?slug=<%= tl.list_slug %>"><%= tl.name %></option>
+				<% end %>
 			</select>
 		  
 		</div>
