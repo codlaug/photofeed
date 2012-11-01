@@ -5,8 +5,6 @@ Photofeed::Application.routes.draw do
 
   resources :twitter_lists
 
-  resources :pods
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
