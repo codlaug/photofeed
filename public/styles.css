@@ -50,7 +50,6 @@ body {
 }
 
 
-
 .photo {
   width: 250px;
   }
@@ -62,6 +61,12 @@ body {
 .profile {
   float: left;
   margin: 10px 0px 10px 0px;;
+  text-align:left;
+}
+
+.created_at {
+  float: left;
+  padding: 0px 0px 10px 0px;
   text-align:left;
 }
 
