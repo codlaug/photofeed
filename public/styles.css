@@ -66,8 +66,8 @@ body {
 
 .created_at {
   float: left;
-  padding: 0px 0px 10px 0px;
-  text-align:left;
+  padding: 0px 0px 10px 10px;
+  clear :left;
 }
 
 .info {

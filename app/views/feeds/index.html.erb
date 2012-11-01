@@ -45,7 +45,7 @@
 					    </div>
 					    <div class="profilepic"><img src="<%=tweet[:usericon]%>" width="50" height="50" /></div>
 					    <div class="profile"><%=tweet[:username]%></div>
-					    <div class="created_at"><%= DateTime.parse(tweet[:twitter_create_at]).strftime("%m/%d/%Y %H:%M:%S") %></div>
+					    <div class="created_at"><%= Time.zone.parse(tweet[:twitter_create_at]).strftime("%m/%d/%Y %H:%M:%S") %></div>
 					    <div class="info"><%=tweet[:text]%></div>
 				</div>
 
