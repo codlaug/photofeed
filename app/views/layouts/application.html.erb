@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Photofeed</title>
+	<title>PicDrop</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<%= csrf_meta_tags %>
+	<script>
+		$(function(){
+  		$('#container').masonry({
+    	// options
+    	itemSelector : '.item',
+    	columnWidth : 20
+  		});
+		});
+	</script>
+
 </head>
 <body>
 
