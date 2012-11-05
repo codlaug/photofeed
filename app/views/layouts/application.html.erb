@@ -6,12 +6,15 @@
   <%= javascript_include_tag "application" %>
 	<%= csrf_meta_tags %>
 	<script>
-		$(function(){
-  		$('#container').masonry({
-    	// options
-    	itemSelector : '.item',
-    	columnWidth : 20
-  		});
+		var $container = $('#container');
+		$container.imagesLoaded(function(){
+			$container.isFitWidth: true
+ 			$container.masonry({
+   			itemSelector : '.item',
+				columnWidth: function( containerWidth ) {
+   				return containerWidth / 7;
+ 				}
+ 			});
 		});
 	</script>
 
