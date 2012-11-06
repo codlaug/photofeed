@@ -1,8 +1,15 @@
 Photofeed::Application.routes.draw do
   get "home/index"
+  
+	match 'login' => "user_sessions#new",      :as => :login
+	match 'logout' => "user_sessions#destroy", :as => :logout
+	match 'signup' => 'users#new', :as => :signup
+	match '/feed' => "feed#index"
 
-  resources :tweets
-
+	resources :user_sessions
+	resources :users  # give us our some normal resource routes for users
+	resource :user, :as => 'account'  # a convenience route
+  # resources :tweets
   resources :twitter_lists
 
   # The priority is based upon order of creation:
@@ -62,6 +69,5 @@ Photofeed::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-match '/feed' => "feed#index"
 
 end

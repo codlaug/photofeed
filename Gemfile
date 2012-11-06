@@ -8,6 +8,7 @@ gem 'rails', '3.2.6'
 gem 'pg'
 gem 'delayed_job_active_record'
 gem 'clockwork'
+gem "authlogic", :git => "git://github.com/binarylogic/authlogic.git"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/binarylogic/authlogic.git
+  revision: 7aed570c240bfe1b7e4e1ec6d69a704308779987
+  specs:
+    authlogic (3.1.3)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -120,6 +128,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  authlogic!
   clockwork
   coffee-rails (~> 3.2.1)
   delayed_job_active_record
