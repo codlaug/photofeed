@@ -4,7 +4,8 @@ Photofeed::Application.routes.draw do
 	match 'login' => "user_sessions#new",      :as => :login
 	match 'logout' => "user_sessions#destroy", :as => :logout
 	match 'signup' => 'users#new', :as => :signup
-	match '/feed' => "feed#index"
+	match 'feed' => "feed#index"
+	root :to => 'feed#index'
 
 	resources :user_sessions
 	resources :users  # give us our some normal resource routes for users
@@ -61,7 +62,6 @@ Photofeed::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

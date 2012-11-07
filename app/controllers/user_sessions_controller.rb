@@ -4,21 +4,29 @@ class UserSessionsController < ApplicationController
 
   def new
     @user_session = UserSession.new
+		respond_to do |format|
+      format.html # new.html.erb
+    end
+
   end
   
   def create
     @user_session = UserSession.new(params[:user_session])
-    if @user_session.save
-      flash[:notice] = "Login successful!"
-      redirect_back_or_default account_url(@current_user)
-    else
-      render :action => :new
-    end
+		respond_to do |format|
+    	if @user_session.save
+				format.html { redirect_to(:twitter_lists, :notice => 'Login Successful') }
+			
+    	else
+      	render :action => :new
+    	end
+		end
   end
 
   def destroy
-    current_user_session.destroy
-    flash[:notice] = "Logout successful!"
-    redirect_back_or_default new_user_session_url
+		@user_session = UserSession.find
+		@user_session.destroy
+		respond_to do |format|
+	 		format.html { redirect_to(:login, :notice => 'Logged out') }
+		end
   end
 end

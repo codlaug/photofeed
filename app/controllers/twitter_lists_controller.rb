@@ -1,4 +1,5 @@
 class TwitterListsController < ApplicationController
+  before_filter :require_user, :only => :index
   # GET /twitter_lists
   # GET /twitter_lists.json
   def index

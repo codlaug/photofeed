@@ -103,7 +103,14 @@ body {
   height: 95px;
 }
 
-
+.login {
+	height: 425px;
+	width:5%;
+	margin-left: auto;
+	margin-right: auto;
+ 	display: table-cell;
+	vertical-align: middle;
+}
 
 
 
