@@ -12,7 +12,7 @@ class TwitterList < ActiveRecord::Base
 
 		members.each do |user| 
 			#source = Twitter.status(user.status.id)
-			tweets = Twitter.user_timeline(user.id) 
+			tweets = Twitter.user_timeline(user.id, :count => 5) 
 
 			tweets.each do |t|
 				if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
