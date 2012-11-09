@@ -4,9 +4,9 @@ class TwitterList < ActiveRecord::Base
 
 
 	def perform 
-		puts "Owner : #{owner_screen_name} ..."
-		puts "Name : #{name} ..."
-		puts "Getting tweets for list #{list_slug} ..."
+		Rails.logger.info "Owner : #{owner_screen_name} ..."
+		Rails.logger.info "Name : #{name} ..."
+		Rails.logger.info "Getting tweets for list #{list_slug} ..."
 	
 		members = nil
 		MAX_ATTEMPTS = 1
@@ -44,7 +44,7 @@ class TwitterList < ActiveRecord::Base
 
 			tweets.each do |t|
 				if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
-					# puts("Tweet exists")
+					# Rails.logger.info "Tweet exists" 
 					next
 				end
 
@@ -82,7 +82,7 @@ class TwitterList < ActiveRecord::Base
 				end
 				
 				tweet.save
-				puts "Saving tweet #{tweet.twitter_id} ..."
+			 	Rails.logger.info "Saving tweet #{tweet.twitter_id} ..."
 
 				join = TwitterListTweet.new
 				join.twitter_list_id = id
