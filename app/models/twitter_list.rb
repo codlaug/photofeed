@@ -4,19 +4,20 @@ class TwitterList < ActiveRecord::Base
 
 
 	def perform 
-		puts "Owner : #{owner_screen_name} ..."
-		puts "Name : #{name} ..."
-		puts "Getting tweets for list #{list_slug} ..."
+		Rails.logger.info "Owner : #{owner_screen_name} ..."
+		Rails.logger.info "Name : #{name} ..."
+		Rails.logger.info "Getting tweets for list #{list_slug} ..."
 
 		members = Twitter.list_members(owner_screen_name, list_slug)
 
+ 		Rails.logger.info "Number of users : #{members.users.length}" 
 		members.each do |user| 
 			#source = Twitter.status(user.status.id)
-			tweets = Twitter.user_timeline(user.id, :count => 5) 
+			tweets = Twitter.user_timeline(user.id, :count => 1) 
 
 			tweets.each do |t|
 				if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
-					# puts("Tweet exists")
+					# Rails.logger.info "Tweet exists" 
 					next
 				end
 
