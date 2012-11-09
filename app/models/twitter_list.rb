@@ -9,13 +9,13 @@ class TwitterList < ActiveRecord::Base
 		Rails.logger.info "Getting tweets for list #{list_slug} ..."
 	
 		members = nil
-		MAX_ATTEMPTS = 1
+		max_attempts = 1
 		num_attempts = 0	
 		begin
 			num_attempts += 1
 			members = Twitter.list_members(owner_screen_name, list_slug)
 		rescue Twitter::Error::TooManyRequests => error
-			if num_attempts <= MAX_ATTEMPTS
+			if num_attempts <= max_attempts
     		# NOTE: Your process could go to sleep for up to 15 minutes but if you
     		# retry any sooner, it will almost certainly fail with the same exception.
     		sleep error.rate_limit.reset_in
@@ -26,13 +26,13 @@ class TwitterList < ActiveRecord::Base
 		end
 		members.each do |user| 
 			tweets = nil
-			MAX_ATTEMPTS = 1
+			max_attempts = 1
 			num_attempts = 0	
 			begin
 				num_attempts += 1
 				tweets = Twitter.user_timeline(user.id, :count => 5) 
 			rescue Twitter::Error::TooManyRequests => error
-				if num_attempts <= MAX_ATTEMPTS
+				if num_attempts <= max_attempts
     			# NOTE: Your process could go to sleep for up to 15 minutes but if you
     			# retry any sooner, it will almost certainly fail with the same exception.
     			sleep error.rate_limit.reset_in
