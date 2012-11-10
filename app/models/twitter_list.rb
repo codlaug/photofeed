@@ -7,13 +7,40 @@ class TwitterList < ActiveRecord::Base
 		Rails.logger.info "Owner : #{owner_screen_name} ..."
 		Rails.logger.info "Name : #{name} ..."
 		Rails.logger.info "Getting tweets for list #{list_slug} ..."
-
-		members = Twitter.list_members(owner_screen_name, list_slug)
-
- 		Rails.logger.info "Number of users : #{members.users.length}" 
+	
+		members = nil
+		max_attempts = 1
+		num_attempts = 0	
+		begin
+			num_attempts += 1
+			members = Twitter.list_members(owner_screen_name, list_slug)
+		rescue Twitter::Error::TooManyRequests => error
+			if num_attempts <= max_attempts
+    		# NOTE: Your process could go to sleep for up to 15 minutes but if you
+    		# retry any sooner, it will almost certainly fail with the same exception.
+    		sleep error.rate_limit.reset_in
+    		retry
+  		else
+				raise
+			end
+		end
 		members.each do |user| 
-			#source = Twitter.status(user.status.id)
-			tweets = Twitter.user_timeline(user.id, :count => 1) 
+			tweets = nil
+			max_attempts = 1
+			num_attempts = 0	
+			begin
+				num_attempts += 1
+				tweets = Twitter.user_timeline(user.id, :count => 5) 
+			rescue Twitter::Error::TooManyRequests => error
+				if num_attempts <= max_attempts
+    			# NOTE: Your process could go to sleep for up to 15 minutes but if you
+    			# retry any sooner, it will almost certainly fail with the same exception.
+    			sleep error.rate_limit.reset_in
+    			retry
+  			else
+					raise
+				end
+			end
 
 			tweets.each do |t|
 				if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
@@ -55,7 +82,7 @@ class TwitterList < ActiveRecord::Base
 				end
 				
 				tweet.save
-				puts "Saving tweet #{tweet.twitter_id} ..."
+			 	Rails.logger.info "Saving tweet #{tweet.twitter_id} ..."
 
 				join = TwitterListTweet.new
 				join.twitter_list_id = id
