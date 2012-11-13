@@ -4,37 +4,45 @@ class TwitterList < ActiveRecord::Base
 
 
 	def perform 
-		Rails.logger.info "Owner : #{owner_screen_name} ..."
-		Rails.logger.info "Name : #{name} ..."
-		Rails.logger.info "Getting tweets for list #{list_slug} ..."
-	
+		Rails.logger.info "DEBUG : Owner : #{owner_screen_name} ..."
+		Rails.logger.info "DEBUG : Name : #{name} ..."
+		Rails.logger.info "DEBUG : Getting tweets for list #{list_slug} ..."
+		total_requests = 0	
 		members = nil
 		max_attempts = 1
 		num_attempts = 0	
 		begin
 			num_attempts += 1
 			members = Twitter.list_members(owner_screen_name, list_slug)
+
+			total_requests += 1
 		rescue Twitter::Error::TooManyRequests => error
 			if num_attempts <= max_attempts
     		# NOTE: Your process could go to sleep for up to 15 minutes but if you
     		# retry any sooner, it will almost certainly fail with the same exception.
+				Rails.logger.info "DEBUG : Twitter List rate limit reset : #{error.rate_limit.reset_in}"
     		sleep error.rate_limit.reset_in
     		retry
   		else
 				raise
 			end
 		end
-		members.each do |user| 
+		
+		Rails.logger.info "DEBUG : Member count :  #{members.users.length}"
+
+		members.users.each do |user| 
 			tweets = nil
 			max_attempts = 1
 			num_attempts = 0	
 			begin
 				num_attempts += 1
 				tweets = Twitter.user_timeline(user.id, :count => 5) 
+				total_requests += 1
 			rescue Twitter::Error::TooManyRequests => error
 				if num_attempts <= max_attempts
     			# NOTE: Your process could go to sleep for up to 15 minutes but if you
     			# retry any sooner, it will almost certainly fail with the same exception.
+					Rails.logger.info "DEBUG : User Timeline rate limit reset : #{error.rate_limit.reset_in}"
     			sleep error.rate_limit.reset_in
     			retry
   			else
@@ -44,7 +52,7 @@ class TwitterList < ActiveRecord::Base
 
 			tweets.each do |t|
 				if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
-					# Rails.logger.info "Tweet exists" 
+					# Rails.logger.info "DEBUG : Tweet exists" 
 					next
 				end
 
@@ -82,14 +90,17 @@ class TwitterList < ActiveRecord::Base
 				end
 				
 				tweet.save
-			 	Rails.logger.info "Saving tweet #{tweet.twitter_id} ..."
+			 	Rails.logger.info "DEBUG : Saving tweet #{tweet.twitter_id} ..."
 
 				join = TwitterListTweet.new
 				join.twitter_list_id = id
 				join.tweet_id = tweet.id
 				join.save
+			# end tweets
 			end
+		# end members
 		end	
+		Rails.logger.info "DEBUG : Total requests : #{total_requests}"
 
 	end
 end
