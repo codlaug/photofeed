@@ -11,7 +11,7 @@ body {
 
 
 	margin: 0;
-	padding: 0px 0px 0px 20px;
+	padding: 0px 0px 0px 45px;
 	text-align: center;
 	color: #333333;
 }
@@ -130,9 +130,20 @@ table th, table td
 	padding: 10px;
 }
 
-.paginate {
+.paginate_top {
+	font-size: 12px;
 	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.paginate_bottom {
+	clear: both;
+	font-size: 12px;
+	padding: 30px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
