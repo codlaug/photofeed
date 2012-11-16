@@ -4,10 +4,11 @@ class FeedController < ApplicationController
   	@property = params[:slug]
 		@twitter_lists = TwitterList.all
   	if @property.nil?
-  		@image_tweets = Tweet.order("created_at DESC").all
+  		@image_tweets = Tweet.order('created_at DESC').page params[:page]
   		@property = "All"
   	else
-			@image_tweets = Tweet.order('created_at DESC').joins(:twitter_list_tweets).joins(:twitter_lists).where('twitter_lists.list_slug = ?', @property)
+			@image_tweets = Tweet.order('created_at DESC').joins(:twitter_list_tweets).joins(:twitter_lists).where('twitter_lists.list_slug = ?', @property).page params[:page]
+
     end
   end
 end

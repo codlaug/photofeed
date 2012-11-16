@@ -1,33 +1,30 @@
+
 <%= form_for(@twitter_list) do |f| %>
-  <% if @twitter_list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@twitter_list.errors.count, "error") %> prohibited this twitter_list from being saved:</h2>
+	<% if @twitter_list.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@twitter_list.errors.count, "error") %> prohibited this twitter_list from being saved:</h2>
 
-      <ul>
-      <% @twitter_list.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+			<ul>
+				<% @twitter_list.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
 
-  <div class="field">
-    <%= f.label :id %><br />
-    <%= f.number_field :id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :owner_screen_name %><br />
-    <%= f.text_field :owner_screen_name %>
-  </div>
-  <div class="field">
-    <%= f.label :list_slug %><br />
-    <%= f.text_field :list_slug %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="field">
+		<%= f.label :name %><br />
+		<%= f.text_field :name %>
+	</div>
+	<div class="field">
+		<%= f.label :owner_screen_name %><br />
+		<%= f.text_field :owner_screen_name %>
+	</div>
+	<div class="field">
+		<%= f.label :list_slug %><br />
+		<%= f.text_field :list_slug %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
 <% end %>
