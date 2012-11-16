@@ -12,7 +12,7 @@ class Member < ActiveRecord::Base
 		num_attempts = 0	
 		begin
 			num_attempts += 1
-			tweets = Twitter.user_timeline(user_id.to_i, :count => 1) 
+			tweets = Twitter.user_timeline(user_id.to_i, :count => 5) 
 			Rails.logger.info "DEBUG : Getting tweets for #{user_id}"
 		rescue Twitter::Error::TooManyRequests => error
 			if num_attempts <= max_attempts
@@ -31,7 +31,7 @@ class Member < ActiveRecord::Base
 
 		Rails.logger.info "DEBUG : Processing tweets for #{user_id}"
 		tweets.each do |t|
-			
+
 			Rails.logger.info "DEBUG : Processing tweet #{t.id}"
 			# need better solution for dups
 			if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
@@ -51,14 +51,17 @@ class Member < ActiveRecord::Base
 
 
 			entities = t.attrs[:entities]
-			
-			Rails.logger.info "DEBUG : entities = t.attrs[:entities]" 
+
+			Rails.logger.info "DEBUG : start media" 
 			tweet.media_url = nil
-			if (!t.media.nil? && !t.media.empty? && t.media[0].type == 'photo') 
+			if (!t.media.empty? ) 
+				#&& t.media[0].type == 'photo'
+				Rails.logger.info "DEBUG : media exists #{t.id}" 
 				tweet.media_url =  t.media[0].media_url
 			end
+			Rails.logger.info "DEBUG : end media" 
 
-			if (!t.urls.nil? && !(t.urls.length < 1))  
+			if (!(t.urls.length < 1))  
 				t.urls.each do |url|
 					path = url.expanded_url
 					if path =~ /twitpic|yfrog/
@@ -69,7 +72,7 @@ class Member < ActiveRecord::Base
 				end
 			end
 
-			Rails.logger.info "DEBUG : entities = t.attrs[:entities]" 
+			Rails.logger.info "DEBUG : tweet.media_url.nil?" 
 			if (tweet.media_url.nil?) 
 				Rails.logger.info "DEBUG : No media.  Skipping" 
 				# puts("No media")
@@ -81,10 +84,15 @@ class Member < ActiveRecord::Base
 
 			Rails.logger.info "DEBUG : Saving tweet #{tweet.twitter_id} ..."
 
-			join = TwitterListTweet.new
-			join.twitter_list_id = id
-			join.tweet_id = tweet.id
-			join.save
+			# get twitter lists for this member
+			twitter_list_ids = TwitterListMember.where(:member_id => id).collect { |twm| twm.twitter_list_id }
+			twitter_list_ids.each do |twitter_list_id|
+				# add to twitter_list_tweets
+				join = TwitterListTweet.new
+				join.twitter_list_id = twitter_list_id
+				join.tweet_id = tweet.id
+				join.save
+			end
 			# end tweets
 		end
 		# make sure we do not exceed 180 calls in 15 minutes
