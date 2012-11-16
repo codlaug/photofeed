@@ -1,7 +1,4 @@
 
-		<div class="header" style="vertical-align:text-top">
-			<img src="picdrop.gif" width="301" height="109" alt="PicDrop" />
-		</div>
 		<div class="styled-select">
 			<select id="header-shows-filter" ONCHANGE="location = this.options[this.selectedIndex].value;">
 				<option value="/feed">Select a tweet source</option>
@@ -10,6 +7,9 @@
 					<option value="/feed?slug=<%= tl.list_slug %>"><%= tl.name %></option>
 				<% end %>
 			</select>
+			<div class="paginate">
+				<%= paginate @image_tweets %>		
+			</div>
 		  
 		</div>
 		<div id="container">
@@ -28,8 +28,5 @@
 					 	<div class="created_at"><%= Time.zone.parse(tweet[:twitter_create_at]).strftime("%m/%d/%Y %H:%M:%S") %></div>
 					</div>
 				</div>
-
 			<% end %>
-
 		</div>
-	

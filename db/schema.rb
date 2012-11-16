@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031213614) do
+ActiveRecord::Schema.define(:version => 20121115211002) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,6 +29,22 @@ ActiveRecord::Schema.define(:version => 20121031213614) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "members", :force => true do |t|
+    t.string   "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "tweets", :force => true do |t|
     t.string   "twitter_create_at"
     t.string   "twitter_id"
@@ -44,6 +60,14 @@ ActiveRecord::Schema.define(:version => 20121031213614) do
     t.string   "profile_image_url"
     t.string   "username"
     t.string   "usericon"
+    t.string   "user_id"
+  end
+
+  create_table "twitter_list_members", :force => true do |t|
+    t.integer  "twitter_list_id"
+    t.integer  "member_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "twitter_list_tweets", :force => true do |t|
@@ -59,6 +83,25 @@ ActiveRecord::Schema.define(:version => 20121031213614) do
     t.string   "list_slug"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "crypted_password",                    :null => false
+    t.string   "password_salt",                       :null => false
+    t.string   "email",                               :null => false
+    t.string   "persistence_token",                   :null => false
+    t.string   "single_access_token",                 :null => false
+    t.string   "perishable_token",                    :null => false
+    t.integer  "login_count",         :default => 0,  :null => false
+    t.integer  "failed_login_count",  :default => 0,  :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.string   "name",                :default => "", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
 end

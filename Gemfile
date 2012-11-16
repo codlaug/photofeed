@@ -24,7 +24,8 @@ end
 gem 'jquery-rails'
 gem 'straight_dope'
 gem 'seed_dump'
-gem 'twitter', '~> 4.0.0'
+gem 'kaminari'
+gem 'twitter', '~> 4.2.0'
 gem 'faraday', '~> 0.8'
 
 # To use ActiveModel has_secure_password
