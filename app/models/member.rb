@@ -32,7 +32,6 @@ class Member < ActiveRecord::Base
 		Rails.logger.info "DEBUG : Processing tweets for #{user_id}"
 		tweets.each do |t|
 
-			Rails.logger.info "DEBUG : Processing tweet #{t.id}"
 			# need better solution for dups
 			if (!Tweet.where(:twitter_id => t.attrs[:id_str]).empty?) 
 				Rails.logger.info "DEBUG : Tweet exists" 
@@ -52,14 +51,10 @@ class Member < ActiveRecord::Base
 
 			entities = t.attrs[:entities]
 
-			Rails.logger.info "DEBUG : start media" 
 			tweet.media_url = nil
 			if (!t.media.empty? ) 
-				#&& t.media[0].type == 'photo'
-				Rails.logger.info "DEBUG : media exists #{t.id}" 
 				tweet.media_url =  t.media[0].media_url
 			end
-			Rails.logger.info "DEBUG : end media" 
 
 			if (!(t.urls.length < 1))  
 				t.urls.each do |url|
@@ -72,16 +67,11 @@ class Member < ActiveRecord::Base
 				end
 			end
 
-			Rails.logger.info "DEBUG : tweet.media_url.nil?" 
 			if (tweet.media_url.nil?) 
-				Rails.logger.info "DEBUG : No media.  Skipping" 
-				# puts("No media")
 				next
 			end
 
-			Rails.logger.info "DEBUG : Saving ... " 
 			tweet.save
-
 			Rails.logger.info "DEBUG : Saving tweet #{tweet.twitter_id} ..."
 
 			# get twitter lists for this member
