@@ -42,7 +42,7 @@ class Member < ActiveRecord::Base
 			tweet = Tweet.new
 			tweet.twitter_id = t.id
 			tweet.twitter_create_at = t.created_at
-			tweet.twitter_created_at = Time.zone.parse(t.twitter_create_at).utc
+			tweet.twitter_created_at = t.created_at.utc.to_s(:db)
 			tweet.text = t.text
 			tweet.source = t.source
 			tweet.user_id = t.user.id
