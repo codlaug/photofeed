@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>PicDrop</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-	<%= csrf_meta_tags %>
-	<script>
-		var $container = $('#container');
-		$container.imagesLoaded(function(){
-			$container.isFitWidth: true
- 			$container.masonry({
-   			itemSelector : '.item',
-				columnWidth: function( containerWidth ) {
-   				return containerWidth / 7;
- 				}
- 			});
-		});
-	</script>
+	<head>
+		<title>PicDrop</title>
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+		<script type="text/javascript">
+			var $container = $('#container');
+			$container.imagesLoaded(function(){
+				$container.isFitWidth: true
+				$container.masonry({
+					itemSelector : '.item',
+					columnWidth: function( containerWidth ) {
+					return containerWidth / 7;
+				}});
+			});
 
-</head>
-<body>
-<div class="header" style="vertical-align:text-top">
-	<img src="../picdrop.gif" width="301" height="109" alt="PicDrop" />
-</div>
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', ‘UA-36007606-2']);
+			_gaq.push(['_trackPageview']);
 
-<%= yield %>
+			(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
 
-</body>
+		</script>
+	</head>
+	<body>
+		<div class="header" style="vertical-align:text-top">
+			<img src="../picdrop.gif" width="301" height="109" alt="PicDrop" />
+		</div>
+
+		<%= yield %>
+
+	</body>
 </html>
