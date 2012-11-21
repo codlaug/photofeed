@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119233154) do
+ActiveRecord::Schema.define(:version => 20121121180252) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(:version => 20121119233154) do
     t.string   "user_id"
     t.datetime "twitter_created_at"
   end
+
+  add_index "tweets", ["twitter_created_at"], :name => "index_tweets_on_twitter_created_at", :order => {"twitter_created_at"=>:desc}
 
   create_table "twitter_list_members", :force => true do |t|
     t.integer  "twitter_list_id"
