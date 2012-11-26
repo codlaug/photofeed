@@ -8,16 +8,16 @@
 		<script type="text/javascript">
 			var $container = $('#container');
 			$container.imagesLoaded(function(){
-				$container.isFitWidth: true
 				$container.masonry({
 					itemSelector : '.item',
 					columnWidth: function( containerWidth ) {
-					return containerWidth / 7;
-				}});
+						return containerWidth / 7;
+					}
+				});
 			});
 
 			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', ‘UA-36007606-2']);
+			_gaq.push(['_setAccount', 'UA-36007606-2']);
 			_gaq.push(['_trackPageview']);
 
 			(function() {
