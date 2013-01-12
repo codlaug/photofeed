@@ -1,7 +1,7 @@
-class Tweet < ActiveRecord::Base
-  attr_accessible :display_url, :expanded_url, :id, :user_id, :media_url, :media_url_https, :source, :text, :twitter_create_at, :twitter_created_at, :twitter_id, :url
-  has_many :twitter_lists, :through => :twitter_list_tweets
-  has_many :twitter_list_tweets
-	paginates_per 49 
-	#max_paginates_per 100
+class Tweet < InterwebPost
+  has_and_belongs_to_many :twitter_lists
+
+  def url
+    "http://www.twitter.com/#!/#{username}/status/#{twitter_id}"
+  end
 end

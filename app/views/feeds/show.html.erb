@@ -1,0 +1,26 @@
+
+<div class="styled-select">
+	<select id="header-shows-filter" ONCHANGE="location = this.options[this.selectedIndex].value;">
+		<option value="/feed">Select a tweet source</option>
+		<option value="/feed">All</option>
+		<% @twitter_lists.each do |tl| %>
+			<option value="/feed?slug=<%= tl.list_slug %>"><%= tl.name %></option>
+		<% end %>
+	</select>
+</div>
+<div id="container">
+
+	<% @image_tweets.each do |tweet| %>
+ 		<div class="item">
+		  <div class="photo">
+		  	<%= link_to tweet.url do %>
+					<div class="overlay"><div class="message"><%= tweet.text %></div></div>
+		   	<% end %>
+  			<img src="<%= tweet.media_url %>" class="photo" />
+		  </div>
+		  <div class="profilepic"><img src="<%= tweet.usericon %>" width="50" height="50" /></div>
+		  <div class="profile"><%= tweet.username %></div>
+		 	<div class="created_at"><%= "#{time_ago_in_words tweet.twitter_created_at} ago" %></div>
+		</div>
+	<% end %>
+</div>

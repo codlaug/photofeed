@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121180252) do
+ActiveRecord::Schema.define(:version => 20130110215649) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,16 +29,10 @@ ActiveRecord::Schema.define(:version => 20121121180252) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "members", :force => true do |t|
-    t.string   "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "tweets", :force => true do |t|
+  create_table "interweb_posts", :force => true do |t|
     t.string   "twitter_create_at"
     t.string   "twitter_id"
-    t.string   "text"
+    t.text     "text"
     t.string   "source"
     t.string   "media_url"
     t.string   "media_url_https"
@@ -52,23 +46,36 @@ ActiveRecord::Schema.define(:version => 20121121180252) do
     t.string   "usericon"
     t.string   "user_id"
     t.datetime "twitter_created_at"
+    t.string   "type"
   end
 
-  add_index "tweets", ["twitter_created_at"], :name => "index_tweets_on_twitter_created_at", :order => {"twitter_created_at"=>:desc}
+  add_index "interweb_posts", ["twitter_created_at"], :name => "index_tweets_on_twitter_created_at", :order => {"twitter_created_at"=>:desc}
 
-  create_table "twitter_list_members", :force => true do |t|
+  create_table "members", :force => true do |t|
+    t.string   "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "members_twitter_lists", :force => true do |t|
     t.integer  "twitter_list_id"
     t.integer  "member_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "twitter_list_tweets", :force => true do |t|
+  add_index "members_twitter_lists", ["member_id"], :name => "index_members_twitter_lists_on_member_id"
+  add_index "members_twitter_lists", ["twitter_list_id"], :name => "index_members_twitter_lists_on_twitter_list_id"
+
+  create_table "tweets_twitter_lists", :force => true do |t|
     t.integer  "twitter_list_id"
     t.integer  "tweet_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "tweets_twitter_lists", ["tweet_id"], :name => "index_tweets_twitter_lists_on_tweet_id"
+  add_index "tweets_twitter_lists", ["twitter_list_id"], :name => "index_tweets_twitter_lists_on_twitter_list_id"
 
   create_table "twitter_lists", :force => true do |t|
     t.string   "name"

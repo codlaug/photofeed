@@ -14,6 +14,8 @@ gem 'clockwork'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'compass-rails'
+  gem 'compass-blueprint'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -27,6 +29,7 @@ gem 'seed_dump'
 gem 'kaminari'
 gem 'twitter', '~> 4.2.0'
 gem 'faraday', '~> 0.8'
+gem 'instagram'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,6 +1,7 @@
 class TwitterList < ActiveRecord::Base
 	attr_accessible :id, :list_slug, :name, :owner_screen_name
-	has_many :tweets, :through => :twitter_list_tweets
+	has_and_belongs_to_many :tweets, :order => 'twitter_created_at DESC'
+	has_and_belongs_to_many :members
 
 
 	def perform 
@@ -44,15 +45,16 @@ class TwitterList < ActiveRecord::Base
 			Rails.logger.info "DEBUG : Saving user : #{user_id}"	
 
 			# new member
-			member = Member.new
-			member.user_id  = user_id
-			member.save
+			self.members.create!(:user_id => user_id)
+			# member = Member.new
+			# member.user_id  = user_id
+			# member.save
 			
-			# save list membership 
-			join = TwitterListMember.new
-			join.member_id = member.id
-			join.twitter_list_id = id
-			join.save
+			# # save list membership 
+			# join = TwitterListMember.new
+			# join.member_id = member.id
+			# join.twitter_list_id = id
+			# join.save
 		end
 
 	end

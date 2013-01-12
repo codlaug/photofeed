@@ -1,7 +1,6 @@
 class Member < ActiveRecord::Base
 	attr_accessible :id, :user_id
-	has_many :twitter_lists, :through => :twitter_list_members
-	has_many :twitter_list_members
+	has_and_belongs_to_many :twitter_lists
 
 
 	def perform 
@@ -48,6 +47,7 @@ class Member < ActiveRecord::Base
 			tweet.user_id = t.user.id
 			tweet.username = t.user.screen_name
 			tweet.usericon = t.user.profile_image_url
+			tweet.twitter_lists = self.twitter_lists
 
 
 			entities = t.attrs[:entities]
@@ -76,14 +76,14 @@ class Member < ActiveRecord::Base
 			Rails.logger.info "DEBUG : Saving tweet #{tweet.twitter_id} ..."
 
 			# get twitter lists for this member
-			twitter_list_ids = TwitterListMember.where(:member_id => id).collect { |twm| twm.twitter_list_id }
-			twitter_list_ids.each do |twitter_list_id|
-				# add to twitter_list_tweets
-				join = TwitterListTweet.new
-				join.twitter_list_id = twitter_list_id
-				join.tweet_id = tweet.id
-				join.save
-			end
+			# twitter_list_ids = TwitterListMember.where(:member_id => id).collect { |twm| twm.twitter_list_id }
+			# twitter_list_ids.each do |twitter_list_id|
+			# 	# add to twitter_list_tweets
+			# 	join = TwitterListTweet.new
+			# 	join.twitter_list_id = twitter_list_id
+			# 	join.tweet_id = tweet.id
+			# 	join.save
+			# end
 			# end tweets
 		end
 		# make sure we do not exceed 180 calls in 15 minutes
