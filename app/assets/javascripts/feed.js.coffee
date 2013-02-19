@@ -9,11 +9,20 @@ jQuery ->
       columnWidth: 100
     });
 
-  _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36007606-2']);
-  _gaq.push(['_trackPageview']);
+root = exports ? this
+root._gaq = [['_setAccount', 'UA-36007606-2'], ['_trackPageview']]
+ 
+insertGAScript = ->
+  ga = document.createElement 'script'
+  ga.type = 'text/javascript'
+  ga.async = true
+ 
+  proto = document.location.protocol
+  proto = if (proto is 'https:') then 'https://ssl' else 'http://www'
+  ga.src = "#{proto}.google-analytics.com/ga.js"
+  
+  s = document.getElementsByTagName 'script'
+  s[0].parentNode.insertBefore ga, s
 
-  ->
-    ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+insertGAScript()
+
