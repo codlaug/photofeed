@@ -1,7 +1,9 @@
 class TwitterList < ActiveRecord::Base
-	attr_accessible :id, :list_slug, :name, :owner_screen_name
+	attr_accessible :id, :list_slug, :name, :owner_screen_name, :pod_id
 	has_and_belongs_to_many :tweets, :order => 'twitter_created_at DESC'
 	has_and_belongs_to_many :members
+
+	belongs_to :pod, :inverse_of => :twitter_list
 
 
 	def perform 

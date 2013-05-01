@@ -6,8 +6,11 @@ jQuery ->
   $container.imagesLoaded ->
     $container.masonry({
       itemSelector : '.item',
-      columnWidth: 100
+      columnWidth: 90
     });
+
+  $('#header-shows-filter').on 'change', (e)->
+    window.location = "/feeds/#{e.target.options[e.target.selectedIndex].value}";
 
 root = exports ? this
 root._gaq = [['_setAccount', 'UA-36007606-2'], ['_trackPageview']]

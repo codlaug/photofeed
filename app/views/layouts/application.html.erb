@@ -11,8 +11,14 @@
 			<h1>
 				<b>Pic</b>Drop
 			</h1>
-			<%= instagram_button %>
+			<%= pods_button %>
+			<%= feeds_button %>
 		</div>
+		<% flash.each do |name, msg| %>
+			<div class="alert alert-<%= name %>">
+				<%= msg %>
+			</div>
+		<% end %>
 
 		<%= yield %>
 

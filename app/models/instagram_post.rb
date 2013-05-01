@@ -1,7 +1,9 @@
 class InstagramPost < InterwebPost
   attr_accessible :usericon, :username
 
-  def self.create_from_instagram_response_hash obj
+  belongs_to :instagram_account
+
+  def self.initialize_from_instagram_response_hash obj
     attributes = {}
     attributes[:twitter_created_at] = Time.at(obj.created_time.to_i).to_datetime
     attributes[:media_url]          = obj.images.thumbnail.url
@@ -11,8 +13,19 @@ class InstagramPost < InterwebPost
     attributes[:usericon]           = obj.user.profile_picture
     attributes[:username]           = obj.user.username
     attributes[:text]               = obj.caption ? obj.caption.text : ""
-    attributes[:url]                = obj.images.standard_resolution.url
-    create attributes
+    attributes[:url]                = "http://web.stagram.com/p/#{obj.id}"
+    new attributes
+  end
+
+
+  # Being lazy here - the interweb_posts table still
+  # has some column names that are specific to twitter
+  def instagram_post_id
+    twitter_id
+  end
+
+  def instagram_post_id= value
+    self.twitter_id = value
   end
   
 end

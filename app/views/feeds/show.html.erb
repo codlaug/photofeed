@@ -1,32 +1,20 @@
 
 <div class="styled-select">
-	<select id="header-shows-filter" ONCHANGE="location = this.options[this.selectedIndex].value;">
-		<option value="/feed">Select a tweet source</option>
-		<option value="/feed">All</option>
-		<% @twitter_lists.each do |tl| %>
-			<option value="/feed?slug=<%= tl.list_slug %>"><%= tl.name %></option>
-		<% end %>
-	</select>
-	<div class="paginate_top">
-		<%= paginate @image_tweets %>
-	</div>
+	<%= select_tag 'header-shows-filter', options_from_collection_for_select(@pods, :id, :name, (params[:id] || 0)), :prompt => "All" %>
 </div>
-<div id="container">
 
-	<% @image_tweets.each do |tweet| %>
+<div id="container">
+	<% @posts.each do |post| %>
  		<div class="item">
 		  <div class="photo">
-		  	<%= link_to tweet.url do %>
-					<div class="overlay"><div class="message"><%= tweet.text %></div></div>
+		  	<%= link_to post.url do %>
+					<div class="overlay"><div class="message"><%= post.text %></div></div>
 		   	<% end %>
-  			<img src="<%= tweet.media_url %>" class="photo" />
+  			<img src="<%= post.media_url %>" class="photo" />
 		  </div>
-		  <div class="profilepic"><img src="<%= tweet.usericon %>" width="50" height="50" /></div>
-		  <div class="profile"><%= tweet.username %></div>
-		 	<div class="created_at"><%= "#{time_ago_in_words tweet.twitter_created_at} ago" %></div>
+		  <div class="profilepic"><img src="<%= post.usericon %>" width="50" height="50" /></div>
+		  <div class="profile"><%= post.username %></div>
+		 	<div class="created_at"><%= "#{time_ago_in_words post.twitter_created_at} ago" %></div>
 		</div>
 	<% end %>
-	<div class="paginate_bottom">
-		<%= paginate @image_tweets %>
-	</div>
 </div>

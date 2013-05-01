@@ -1,3 +1,3 @@
 id: 3206ccf12aaf4c408f55dd75c6c01a10
 secret: 1762960045454df8a9a26cf4af9a4f71
-url: 'http://localhost:3000/session/new'
+url: '/pods/set_instagram_access_token'

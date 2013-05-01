@@ -2,7 +2,11 @@ require 'instagram'
 
 instagram_config = YAML.load(File.read(Rails.root.join('config', 'instagram.yml')))
 
-INSTAGRAM_CALLBACK_URL = instagram_config['url']
+if Rails.env.development?
+  INSTAGRAM_CALLBACK_URL = "http://localhost:3000#{instagram_config['url']}"
+elsif Rails.env.production?
+  INSTAGRAM_CALLBACK_URL = `hostname` + instagram_config['url']
+end
 
 Instagram.configure do |config|
   config.client_id = instagram_config['id']

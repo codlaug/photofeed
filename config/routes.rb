@@ -1,11 +1,14 @@
 Photofeed::Application.routes.draw do
-  get "home/index"
 
   resources :tweets
 
   resources :twitter_lists
-  resource :feed, :only => :show
-  resource :session, :only => [:new, :destroy]
+  resources :pods, :except => :show do
+    get 'set_instagram_access_token', :on => :collection
+  end
+  resources :feeds, :only => [:show, :index]
+
+  root :to => 'feeds#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

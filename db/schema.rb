@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110215649) do
+ActiveRecord::Schema.define(:version => 20130419182903) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(:version => 20130110215649) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "instagram_accounts", :force => true do |t|
+    t.string   "username"
+    t.string   "password"
+    t.datetime "last_query_at"
+    t.string   "access_token"
+    t.integer  "pod_id"
+  end
+
+  add_index "instagram_accounts", ["pod_id"], :name => "index_instagram_accounts_on_pod_id"
+
   create_table "interweb_posts", :force => true do |t|
     t.string   "twitter_create_at"
     t.string   "twitter_id"
@@ -39,17 +49,20 @@ ActiveRecord::Schema.define(:version => 20130110215649) do
     t.string   "url"
     t.string   "display_url"
     t.string   "expanded_url"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "profile_image_url"
     t.string   "username"
     t.string   "usericon"
     t.string   "user_id"
     t.datetime "twitter_created_at"
     t.string   "type"
+    t.integer  "instagram_account_id"
   end
 
-  add_index "interweb_posts", ["twitter_created_at"], :name => "index_tweets_on_twitter_created_at", :order => {"twitter_created_at"=>:desc}
+  add_index "interweb_posts", ["instagram_account_id"], :name => "index_interweb_posts_on_instagram_account_id"
+  add_index "interweb_posts", ["twitter_created_at"], :name => "index_tweets_on_twitter_created_at"
+  add_index "interweb_posts", ["type"], :name => "index_interweb_posts_on_type"
 
   create_table "members", :force => true do |t|
     t.string   "user_id"
@@ -67,6 +80,14 @@ ActiveRecord::Schema.define(:version => 20130110215649) do
   add_index "members_twitter_lists", ["member_id"], :name => "index_members_twitter_lists_on_member_id"
   add_index "members_twitter_lists", ["twitter_list_id"], :name => "index_members_twitter_lists_on_twitter_list_id"
 
+  create_table "pods", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "pods", ["name"], :name => "index_pods_on_name"
+
   create_table "tweets_twitter_lists", :force => true do |t|
     t.integer  "twitter_list_id"
     t.integer  "tweet_id"
@@ -78,30 +99,13 @@ ActiveRecord::Schema.define(:version => 20130110215649) do
   add_index "tweets_twitter_lists", ["twitter_list_id"], :name => "index_tweets_twitter_lists_on_twitter_list_id"
 
   create_table "twitter_lists", :force => true do |t|
-    t.string   "name"
     t.string   "owner_screen_name"
     t.string   "list_slug"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "pod_id"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "crypted_password",                    :null => false
-    t.string   "password_salt",                       :null => false
-    t.string   "email",                               :null => false
-    t.string   "persistence_token",                   :null => false
-    t.string   "single_access_token",                 :null => false
-    t.string   "perishable_token",                    :null => false
-    t.integer  "login_count",         :default => 0,  :null => false
-    t.integer  "failed_login_count",  :default => 0,  :null => false
-    t.datetime "last_request_at"
-    t.datetime "current_login_at"
-    t.datetime "last_login_at"
-    t.string   "current_login_ip"
-    t.string   "last_login_ip"
-    t.string   "name",                :default => "", :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-  end
+  add_index "twitter_lists", ["pod_id"], :name => "index_twitter_lists_on_pod_id"
 
 end

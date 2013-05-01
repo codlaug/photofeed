@@ -1,0 +1,15 @@
+<div id="container">
+  <h1>Manage Pods</h1>
+  <ul>
+    <%= content_tag_for(:li, @pods) do |pod| %>
+      <%= link_to pod.name, edit_pod_path(pod), :class => 'btn' %>
+    <% end %>
+  </ul>
+
+  <br />
+  <br />
+  
+  <div>
+    <%= link_to 'New Pod', new_pod_path(), :class => 'btn' %>
+  </div>
+</div>

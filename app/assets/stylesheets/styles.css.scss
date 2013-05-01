@@ -4,20 +4,36 @@
 @import "blueprint/reset";
 @import "blueprint";
 @import "blueprint/buttons";
+@import "blueprint/scaffolding";
+@import "blueprint/interaction";
+@import "blueprint/fancy-type";
 @import "compass/css3";
 
 body {
+	@include blueprint-scaffolding;
+	@include blueprint-typography;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12px;
 	background-image: url(../bg.gif), -moz-linear-gradient(top,  #ffffff,  #dddbd5); background-repeat:repeat-x;
 	background-image: url(../bg.gif), -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dddbd5)); background-repeat:repeat-x;
-
 
 	margin: 0;
 	padding: 0px 0px 0px 45px;
 	text-align: center;
 	color: #333333;
 }
+
+li {
+	list-style-type: none;
+}
+
+.alert-notice {
+	@include success();
+}
+.alert-error {
+	@include error();
+}
+
 
 a.btn {
   @include anchor-button;
@@ -26,8 +42,22 @@ a.btn {
   @include button-active-colors;
 }
 
+form {
+	@include box;
+	@include blueprint-form;
+	@include blueprint-form-layout;
+	input[type=submit] {
+	  @include button-colors;
+	  @include button-hover-colors;
+	  @include button-active-colors;
+	}
+	div {
+		margin: 20px;
+	}
+}
+
 .header {
-	margin:0px 0px 0px 0px;
+	margin:0px 0px 20px 0px;
 	background-color:#ffffff;
 	height:109px;
 	position: relative;
@@ -41,12 +71,17 @@ a.btn {
 		}
 	}
 
-	.instagram-login-logout {
-		font-size: 12px;
-		line-height: 12px;
+	.btn {
 		position: absolute;
 		top: 0;
+	}
+
+	.pods-button {
 		left: 0;
+	}
+
+	.feeds-button {
+		left: 70px;
 	}
 }
 
