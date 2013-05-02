@@ -3,8 +3,8 @@ class InstagramAccount < ActiveRecord::Base
   has_many :instagram_posts, :dependent => :destroy, :order => 'created_at DESC'
   belongs_to :pod, :inverse_of => :instagram_account
 
-  attr_accessible :username, :password, :pod_id
-  validates :username, :password, :presence => true
+  attr_accessible :username, :pod_id
+  validates :username, :presence => true
 
 
 

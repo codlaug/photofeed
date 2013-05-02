@@ -15,7 +15,6 @@
     <%= f.fields_for :instagram_account do |inst_f| %>
 
         <%= inst_f.label :username, 'Username' %> <%= inst_f.text_field :username %> <br />
-        <%= inst_f.label :password, 'Password' %> <%= inst_f.text_field :password %> <br />
         <% if @pod.instagram_account.access_token.present? %>
           <%= inst_f.label :access_token, 'Access Token:' %> <%= @pod.instagram_account.access_token %><br />
           <%= instagram_button @pod.instagram_account.id, :text => "Relog into Instagram" %>
