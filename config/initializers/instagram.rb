@@ -5,7 +5,7 @@ instagram_config = YAML.load(File.read(Rails.root.join('config', 'instagram.yml'
 if Rails.env.development?
   INSTAGRAM_CALLBACK_URL = "http://localhost:3000#{instagram_config['url']}"
 elsif Rails.env.production?
-  INSTAGRAM_CALLBACK_URL = `hostname` + instagram_config['url']
+  INSTAGRAM_CALLBACK_URL = "http://boiling-taiga-7631.herokuapp.com#{instagram_config['url']}"
 end
 
 Instagram.configure do |config|
