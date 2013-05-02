@@ -32,7 +32,7 @@ private
   end
 
   def time_to_poll?
-    last_query_at.blank? or Time.now - Time.at(last_query_at) > 1.minutes
+    last_query_at.blank? or Time.now - Time.at(last_query_at) > 15.minutes
   end
 
   def client

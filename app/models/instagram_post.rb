@@ -4,17 +4,21 @@ class InstagramPost < InterwebPost
   belongs_to :instagram_account
 
   def self.initialize_from_instagram_response_hash obj
-    attributes = {}
-    attributes[:twitter_created_at] = Time.at(obj.created_time.to_i).to_datetime
-    attributes[:media_url]          = obj.images.thumbnail.url
-    attributes[:url]                = obj.link
-    attributes[:twitter_id]         = obj.id
-    attributes[:user_id]            = obj.user.id
-    attributes[:usericon]           = obj.user.profile_picture
-    attributes[:username]           = obj.user.username
-    attributes[:text]               = obj.caption ? obj.caption.text : ""
-    attributes[:url]                = "http://web.stagram.com/p/#{obj.id}"
-    new attributes
+    begin
+      attributes = {}
+      attributes[:twitter_created_at] = Time.at(obj.created_time.to_i).to_datetime
+      attributes[:media_url]          = obj.images.thumbnail.url
+      attributes[:url]                = obj.link
+      attributes[:twitter_id]         = obj.id
+      attributes[:user_id]            = obj.user.id
+      attributes[:usericon]           = obj.user.profile_picture
+      attributes[:username]           = obj.user.username
+      attributes[:text]               = obj.caption ? obj.caption.text : ""
+      attributes[:url]                = "http://web.stagram.com/p/#{obj.id}"
+      new attributes
+    rescue
+      raise "Something bad happened. The instagram response looks like this #{obj.inspect}"
+    end
   end
 
 
