@@ -8,7 +8,6 @@ class TwitterList < ActiveRecord::Base
 
 	def perform 
 		Rails.logger.info "DEBUG : Owner : #{owner_screen_name} ..."
-		Rails.logger.info "DEBUG : Name : #{name} ..."
 		Rails.logger.info "DEBUG : List slug #{list_slug} ..."
 		members = nil
 		max_attempts = 1
