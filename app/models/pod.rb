@@ -23,7 +23,7 @@ class Pod < ActiveRecord::Base
 
   
   def interweb_posts
-    (grams.limit(40) + tweets.limit(40)).take(40).sort_by(&:twitter_created_at).reverse
+    (grams.limit(40) + tweets.limit(40)).sort_by(&:twitter_created_at).reverse.take(40)
   end
 
 
