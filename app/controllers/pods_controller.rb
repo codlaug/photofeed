@@ -1,19 +1,20 @@
 class PodsController < ApplicationController
 
   def index
-    @pods = Pod.includes(:twitter_list, :instagram_account).all
+    @pods = Pod.includes(:twitter_lists, :instagram_account).all
   end
 
   def edit
     @pod = Pod.find params[:id]
+    @pod.twitter_lists.build
     @pod.build_instagram_account if @pod.instagram_account.nil?
   end
 
   def update
     pod = Pod.find params[:id]
     pod.update_attributes! params[:pod]
-    flash[:notice] = "Okay! #{pod.name} was successfully updated."
-    redirect_to pods_path()
+    flash[:success] = "We did it! #{pod.name} was successfully updated."
+    redirect_to edit_pod_path(pod)
   end
 
   def new
@@ -23,8 +24,8 @@ class PodsController < ApplicationController
 
   def create
     pod = Pod.new
-    pod.build_web_accounts
     pod.update_attributes! params[:pod]
+    flash[:success] = "Success! #{pod.name} was created."
     redirect_to edit_pod_path(pod)
   end
 

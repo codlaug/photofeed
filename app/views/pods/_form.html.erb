@@ -1,15 +1,19 @@
-<%= form_for @pod do |f| %>
+<%= form_for @pod, :html => {:class => 'well'} do |f| %>
   <%= f.label :name, 'Name' %> <%= f.text_field :name %>
 
-  <fieldset>
+  
+  <fieldset class="twitter well">
     <i class="icon-twitter icon-4x"> Twitter</i>
     <br />
-    <%= f.fields_for :twitter_list do |twit_f| %>
-      <%= twit_f.label :twitter_handle, 'Twitter Handle' %> <%= twit_f.text_field :owner_screen_name %>
+    <%= f.fields_for :twitter_lists do |twit_f| %>
+      <%= twit_f.label :owner_screen_name, 'Twitter List' %> <%= twit_f.text_field :owner_screen_name, :placeholder => 'Twitter Username' %>
+      <%= twit_f.select :list_slug, options_for_select(twit_f.object.lists, twit_f.object.list_slug) %>
+      <button type="button" class="btn btn-danger btn-mini remove-button" data-toggle="button"><i class="icon-remove-sign"></i></button>
+      <%= twit_f.hidden_field :_destroy %>
     <% end %>
   </fieldset>
   
-  <fieldset>
+  <fieldset class="well">
     <i class="icon-instagram icon-4x"> Instagram</i>
     <br />
     <%= f.fields_for :instagram_account do |inst_f| %>
@@ -19,7 +23,7 @@
           <%= inst_f.label :access_token, 'Access Token:' %> <%= @pod.instagram_account.access_token %><br />
           <%= instagram_button @pod.instagram_account.id, :text => "Relog into Instagram" %>
         <% elsif !@pod.instagram_account.new_record? %>
-          <div class="alert-error">
+          <div class="alert alert-error">
             You need to log in with this account so PicDrop can capture the access token from Instagram<br />
             <%= instagram_button @pod.instagram_account.id %>
           </div>
@@ -27,6 +31,11 @@
     <% end %>
   </fieldset>
 
+  <fieldset class="well">
+    <i class="icon-facebook icon-4x"> Facebook</i>
+    <br />
+  </fieldset>
+
   <br />
-  <%= f.submit %>
+  <%= f.submit :class => 'btn btn-success' %>
 <% end %>

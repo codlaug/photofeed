@@ -1,6 +1,6 @@
 <div id="container">
   <h1>Manage Pods</h1>
-  <ul>
+  <ul class="pod-list">
     <%= content_tag_for(:li, @pods) do |pod| %>
       <%= link_to pod.name, edit_pod_path(pod), :class => 'btn' %>
     <% end %>
@@ -10,6 +10,8 @@
   <br />
   
   <div>
-    <%= link_to 'New Pod', new_pod_path(), :class => 'btn' %>
+    <%= link_to new_pod_path(), :class => 'btn' do %>
+      <i class="icon-plus"> New Pod</i>
+    <% end %>
   </div>
 </div>

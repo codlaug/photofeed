@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,8 +14,8 @@ gem 'clockwork'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'compass-rails'
-  gem 'compass-blueprint'
+  gem 'bootstrap-sass-rails'
+  gem 'eco'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -29,7 +29,8 @@ gem 'seed_dump'
 gem 'kaminari'
 gem 'twitter', '~> 4.2.0'
 gem 'faraday', '~> 0.8'
-gem 'instagram'
+gem 'instagram', '~> 0.10.0'
+gem 'fb_graph'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

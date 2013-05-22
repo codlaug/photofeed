@@ -3,7 +3,28 @@ class TwitterList < ActiveRecord::Base
 	has_and_belongs_to_many :tweets, :order => 'twitter_created_at DESC'
 	has_and_belongs_to_many :members
 
-	belongs_to :pod, :inverse_of => :twitter_list
+	belongs_to :pod, :inverse_of => :twitter_lists
+
+	before_create { |twit_list| twit_list.list_slug = twit_list.lists.first[1] }
+
+	def lists
+		Rails.cache.fetch("#{owner_screen_name}.lists", :expires_in => 12.hours) do
+			begin
+				list = Twitter.lists(owner_screen_name)
+			rescue Twitter::Error::TooManyRequests
+
+			rescue Twitter::Error::NotFound
+				[]
+			end
+			if list
+				list.collect do |item|
+					[item.name, item.slug]
+				end
+			else
+				[]
+			end
+		end
+	end
 
 
 	def perform 
