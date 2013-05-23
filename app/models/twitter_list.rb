@@ -9,7 +9,10 @@ class TwitterList < ActiveRecord::Base
 	before_create { |twit_list| twit_list.list_slug = twit_list.lists.first[1] }
 
 	# If we're changing the list, queue it up for a query to Twitter
-	after_save { |twit_list| Delayed::Job.enqueue twit_list }, :if => Proc.new { |twit_list| twit_list.list_slug_changed? }
+	after_save :queue_list, :if => Proc.new { |twit_list| twit_list.list_slug_changed? }
+	def queue_list
+		Delayed::Job.enqueue self
+	end
 
 
 	# Queries Twitter for all the lists that this username has
