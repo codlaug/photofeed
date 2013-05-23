@@ -5,8 +5,14 @@ class TwitterList < ActiveRecord::Base
 
 	belongs_to :pod, :inverse_of => :twitter_lists
 
+	 # Give it the first list as a default
 	before_create { |twit_list| twit_list.list_slug = twit_list.lists.first[1] }
 
+	# If we're changing the list, queue it up for a query to Twitter
+	after_save { |twit_list| Delayed::Job.enqueue twit_list }, :if => Proc.new { |twit_list| twit_list.list_slug_changed? }
+
+
+	# Queries Twitter for all the lists that this username has
 	def lists
 		Rails.cache.fetch("#{owner_screen_name}.lists", :expires_in => 12.hours) do
 			begin

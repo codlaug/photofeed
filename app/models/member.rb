@@ -2,6 +2,9 @@ class Member < ActiveRecord::Base
 	attr_accessible :id, :user_id
 	has_and_belongs_to_many :twitter_lists
 
+	# When a Twitter list creates a member, have it poll for new tweets
+	after_create { |member| Delayed::Job.enqueue member }
+
 
 	def perform 
 		Rails.logger.info "DEBUG : id : #{id} ..."
