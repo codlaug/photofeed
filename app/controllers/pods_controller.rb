@@ -8,7 +8,7 @@ class PodsController < ApplicationController
     @pod = Pod.find params[:id]
     @pod.twitter_lists.build
     if @pod.instagram_account
-      @pod.instagram_account.instagram_users.build
+      10.times { @pod.instagram_account.instagram_users.build }
     else
       @pod.build_instagram_account
     end
