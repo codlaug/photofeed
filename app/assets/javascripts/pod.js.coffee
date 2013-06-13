@@ -2,14 +2,26 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-  $('.remove-button').on 'click', (e) ->
-    $el = $(e.currentTarget).next 'input'
+  $('.remove-button, .js-consume-feed-button').on 'click', (e) ->
+    $el = $(e.currentTarget).nextUntil 'label', 'input'
     if $el.val() is 'false'
       $(e.currentTarget).tooltip('show')
       setTimeout -> 
         $(e.currentTarget).tooltip('hide')
       , 2000
     $el.val($el.val() == 'false') # toggle
+
+  $('.js-consume-feed-button').on 'click', (e) ->
+    $el = $('#pod_instagram_account_attributes_consume_from_feed')
+    if $el.val() is 'true'
+      $(e.currentTarget).find('i').addClass('icon-check').removeClass('icon-check-empty')
+    else
+      $(e.currentTarget).find('i').removeClass('icon-check').addClass('icon-check-empty')
+
+  $('.js-consume-feed-button').tooltip 
+    title: 'Uncheck this to only use the account for Instagram authentication'
+    placement: 'left'
+    trigger: 'hover'
 
   $('.twitter input').tooltip 
     title: 'Enter a Twitter username here, then select a List from the adjacent dropdown after updating the pod'

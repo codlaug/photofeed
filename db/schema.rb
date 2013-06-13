@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613191754) do
+ActiveRecord::Schema.define(:version => 20130613205045) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130613191754) do
     t.datetime "last_query_at"
     t.string   "access_token"
     t.integer  "pod_id"
+    t.boolean  "consume_from_feed"
   end
 
   add_index "instagram_accounts", ["pod_id"], :name => "index_instagram_accounts_on_pod_id"

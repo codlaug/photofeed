@@ -20,14 +20,17 @@
 
       <%= inst_f.label :username, 'Username' %> <%= inst_f.text_field :username %> <br />
       <% if @pod.instagram_account.access_token.present? %>
+        <%= consume_feed_button @pod.instagram_account.consume_from_feed %>
+        <%= inst_f.hidden_field :consume_from_feed, value: @pod.instagram_account.consume_from_feed %>
+
         <%= inst_f.label :access_token, 'Access Token:' %> <%= @pod.instagram_account.access_token %><br />
         <%= instagram_button @pod.instagram_account.id, :text => "Relog into Instagram" %>
 
-        <div>Also pull in posts from the following users:</div>
+        <div>Pull in posts from the following users:</div>
         <%= inst_f.fields_for :instagram_users do |user_f| %>
-          <%= user_f.label :username, 'Username' %> <%= user_f.text_field :username, :placeholder => 'Instagram Username' %>
+          <%= user_f.text_field :username, :placeholder => 'Instagram Username' %>
           <button type="button" class="btn btn-danger btn-mini remove-button" data-toggle="button"><i class="icon-remove-sign"></i></button>
-          <%= user_f.hidden_field :_destroy %>
+          <%= user_f.hidden_field :_destroy %><br />
         <% end %>
       <% elsif !@pod.instagram_account.new_record? %>
         <div class="alert alert-error">

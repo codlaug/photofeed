@@ -3,7 +3,7 @@ class InstagramAccount < ActiveRecord::Base
   has_many :instagram_posts, :dependent => :destroy, :order => 'created_at DESC'
   belongs_to :pod, :inverse_of => :instagram_account
 
-  attr_accessible :username, :pod_id
+  attr_accessible :username, :pod_id, :consume_from_feed
   validates :username, :presence => true
 
   has_many :instagram_users, :dependent => :destroy
@@ -16,7 +16,12 @@ class InstagramAccount < ActiveRecord::Base
       self.last_query_at = Time.now
       self.save!
 
-      instagram_results = client.user_media_feed( :min_id => latest_post_id )
+      instagram_results = []
+
+      if self.consume_from_feed
+        instagram_results += client.user_media_feed( :min_id => latest_post_id )
+      end
+
       instagram_users.select{|u| u.instagram_id }.each do |instagram_user|
         instagram_results += client.user_recent_media(instagram_user.instagram_id, :min_id => latest_post_id)
       end
