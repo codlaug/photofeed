@@ -11,7 +11,5 @@
  *= require_self
  *= require twitter/bootstrap-no-sprites
  *= require font-awesome
- *= require font-awesome-ext
- *= require font-awesome-social
  *= require_tree .
  */
