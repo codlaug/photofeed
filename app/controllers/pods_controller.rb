@@ -7,7 +7,11 @@ class PodsController < ApplicationController
   def edit
     @pod = Pod.find params[:id]
     @pod.twitter_lists.build
-    @pod.build_instagram_account if @pod.instagram_account.nil?
+    if @pod.instagram_account
+      @pod.instagram_account.instagram_users.build
+    else
+      @pod.build_instagram_account
+    end
   end
 
   def update

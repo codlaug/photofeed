@@ -12,12 +12,12 @@ jQuery ->
     $el.val($el.val() == 'false') # toggle
 
   $('.twitter input').tooltip 
-    title: 'Enter a Twitter username here, and then after updating the pod, select a List from the adjacent dropdown'
+    title: 'Enter a Twitter username here, then select a List from the adjacent dropdown after updating the pod'
     placement: 'left'
     trigger: 'focus'
 
   $('.remove-button').tooltip
-    title: 'This Twitter List will be deleted when the pod is updated'
+    title: 'This item will be deleted when the pod is updated'
     trigger: 'manual'
     placement: 'right'
   @

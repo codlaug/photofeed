@@ -6,6 +6,9 @@ class InstagramAccount < ActiveRecord::Base
   attr_accessible :username, :pod_id
   validates :username, :presence => true
 
+  has_many :instagram_users, :dependent => :destroy
+  accepts_nested_attributes_for :instagram_users, :reject_if => proc { |attributes| attributes['username'].blank? }, :allow_destroy => true
+  attr_accessible :instagram_users_attributes
 
 
   def poll
@@ -14,6 +17,9 @@ class InstagramAccount < ActiveRecord::Base
       self.save!
 
       instagram_results = client.user_media_feed( :min_id => latest_post_id )
+      instagram_users.select{|u| u.instagram_id }.each do |instagram_user|
+        instagram_results += client.user_recent_media(instagram_user.instagram_id, :min_id => latest_post_id)
+      end
 
       instagram_results.each do |gram|
         instagram_post = InstagramPost.initialize_from_instagram_response_hash gram
@@ -23,6 +29,9 @@ class InstagramAccount < ActiveRecord::Base
     end
   end
 
+  def client
+    @client ||= Instagram.client :access_token => self.access_token
+  end
 
 private
 
@@ -34,10 +43,5 @@ private
   def time_to_poll?
     last_query_at.blank? or Time.now - Time.at(last_query_at) > 15.minutes
   end
-
-  def client
-    @client ||= Instagram.client :access_token => self.access_token
-  end
-
 
 end

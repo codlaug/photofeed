@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419182903) do
+ActiveRecord::Schema.define(:version => 20130613191754) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(:version => 20130419182903) do
   end
 
   add_index "instagram_accounts", ["pod_id"], :name => "index_instagram_accounts_on_pod_id"
+
+  create_table "instagram_users", :force => true do |t|
+    t.string   "instagram_id"
+    t.string   "username"
+    t.integer  "instagram_account_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "instagram_users", ["instagram_account_id"], :name => "index_instagram_users_on_instagram_account_id"
 
   create_table "interweb_posts", :force => true do |t|
     t.string   "twitter_create_at"
