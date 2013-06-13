@@ -15,7 +15,7 @@ class FeedsController < ApplicationController
   def index
     @pods = Pod.all
 
-    @posts = InterwebPost.order('twitter_created_at DESC').limit(40)
+    @posts = InterwebPost.order('twitter_created_at DESC').page(params[:page]).per(40)
     
     render :show
   end
