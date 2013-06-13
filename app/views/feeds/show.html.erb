@@ -2,6 +2,9 @@
 <div class="styled-select">
 	<%= select_tag 'header-shows-filter', options_from_collection_for_select(@pods, :id, :name, (params[:id] || 0)), :prompt => "All" %>
 </div>
+<div class="pagination">
+	<%= paginate @posts %>
+</div>
 
 <div id="container">
 	<% @posts.each do |post| %>
@@ -17,4 +20,8 @@
 		 	<div class="created_at"><%= "#{time_ago_in_words post.twitter_created_at} ago" %></div>
 		</div>
 	<% end %>
+</div>
+
+<div class="pagination">
+	<%= paginate @posts %>
 </div>
