@@ -25,11 +25,6 @@ class Pod < ActiveRecord::Base
     (grams.limit(80) + tweets.limit(80)).sort_by(&:twitter_created_at).reverse
   end
 
-
-  def check_instagram
-    instagram_account.poll if instagram_account
-  end
-
   def build_web_accounts
     self.twitter_lists.build if self.twitter_lists.blank?
     self.instagram_account ||= self.build_instagram_account

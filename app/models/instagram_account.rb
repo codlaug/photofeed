@@ -11,10 +11,8 @@ class InstagramAccount < ActiveRecord::Base
   attr_accessible :instagram_users_attributes
 
 
-  def poll
-    if access_token.present? and time_to_poll?
-      self.last_query_at = Time.now
-      self.save!
+  def perform
+    if access_token.present?
 
       instagram_results = []
 
@@ -26,7 +24,7 @@ class InstagramAccount < ActiveRecord::Base
         instagram_results += client.user_recent_media(instagram_user.instagram_id, :min_id => latest_post_id)
       end
 
-      instagram_results.each do |gram|
+      instagram_results.uniq.each do |gram|
         instagram_post = InstagramPost.initialize_from_instagram_response_hash gram
         instagram_posts << instagram_post
         instagram_post.save!
@@ -43,10 +41,6 @@ private
   def latest_post_id
     post = self.instagram_posts.first
     post ? post.instagram_post_id : nil
-  end
-
-  def time_to_poll?
-    last_query_at.blank? or Time.now - Time.at(last_query_at) > 15.minutes
   end
 
 end

@@ -5,7 +5,6 @@ class FeedsController < ApplicationController
 		@pods = Pod.all
   	
     pod = Pod.find params[:id]
-    pod.check_instagram
 
 		@posts = Kaminari.paginate_array(pod.interweb_posts).page(params[:page]).per(40)
     
